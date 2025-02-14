@@ -1,0 +1,407 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no,viewport-fit=cover">
+	<title>葬送のフリーレン｜S-PACE</title>
+	<meta name="description" content="S-PACE(スペース)は、ブラウザからアクセスできる仮想空間です。スマートフォン、タブレット、PCから無料ですぐにご利用いただけます。小学館のコンテンツをはじめとした、様々な体験ができるメディア空間になります。">
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;700&display=swap">
+	<link rel="stylesheet" href="TemplateData/style.css">
+	<link rel="shortcut icon" href="TemplateData/favicon.ico">
+	<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+	<script src="TemplateData/space_dialog.js"></script>
+	<script src="TemplateData/space.js"></script>
+	<script src="https://unpkg.com/micromodal/dist/micromodal.min.js"></script>
+	<script async src="https://www.googletagmanager.com/gtag/js?id=G-QC76N9N9YZ"></script>
+	<script async src="https://www.googletagmanager.com/gtag/js?id=G-W63HQZLKL5"></script>
+	<script>
+		window.dataLayer = window.dataLayer || [];
+		function gtag() { dataLayer.push(arguments); }
+		gtag('js', new Date());
+		gtag('config', 'G-QC76N9N9YZ');
+		gtag('config', 'G-W63HQZLKL5');
+	</script>
+</head>
+<body>
+    <div id="unity-container" class="unity-desktop">
+        <canvas id="unity-canvas" width=1024 height=768></canvas>
+        <div id="unity-loading-bar">
+            <div id="landscape"></div>
+            <div id="progress-bar-empty">
+                <div id="progress-bar-full"></div>
+            </div>
+            <div id="loading">Loading...</div>
+            <div id="loading_text"></div>
+        </div>
+        <div id="unity-warning"> </div>
+    </div>
+    <div class="modal micromodal-slide" id="modal-signage" aria-hidden="true">
+        <div class="modal__overlay" tabindex="-1" data-micromodal-close>
+            <div class="modal_signage modal__container">
+                <div class="modal_signage_arrow" id="modal-signage-left"><img src="TemplateData/left.svg"></div>
+                <div class="modal_signage_container" role="dialog" aria-modal="true">
+                    <div class="modal_signage_content" id="modal-signage-content">
+                        <img id="modal-signage-image" src="">
+                    </div>
+                    <div class="modal_signage_title" id="modal-signage-title"><p id="modal-signage-title-p"></p></div>
+                    <div class="modal_signage_link" id="modal-signage-link">
+                        <a id="modal-signage-link-a" href="" target="_blank">詳しく見る</a>
+                    </div>
+                    <div class="modal_signage_close" aria-label="Close modal" data-micromodal-close><img src="TemplateData/x.svg"></div>
+                </div>
+                <div class="modal_signage_arrow" id="modal-signage-right"><img src="TemplateData/right.svg"></div>
+            </div>
+        </div>
+    </div>
+    <div class="modal micromodal-slide" id="modal-tutorial" aria-hidden="true">
+        <div class="modal__overlay" tabindex="-1" data-micromodal-close>
+            <div class="modal_tutorial modal__container">
+                <div class="modal_tutorial_container" role="dialog" aria-modal="true">
+                    <div class="modal_tutorial_content">
+                        <img id="modal-tutorial-image" src="">
+                    </div>
+                    <div class="modal_tutorial_close_content" data-micromodal-close><p>閉じる</p></div>
+                    <div class="modal_tutorial_close" aria-label="Close modal" data-micromodal-close><img src="TemplateData/x.svg"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal micromodal-slide" id="modal-cover" aria-hidden="true">
+        <div class="modal__overlay" tabindex="-1" data-micromodal-close>
+            <div class="modal_cover modal__container">
+                <div class="modal_cover_container" role="dialog" aria-modal="true">
+                    <div class="modal_cover_content">
+                        <img id="modal-cover-image" src="">
+                    </div>
+                    <div class="modal_cover_close" aria-label="Close modal" data-micromodal-close><img src="TemplateData/x.svg"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal micromodal-slide" id="modal-beauty" aria-hidden="true">
+        <div class="modal__overlay" tabindex="-1" data-micromodal-close>
+            <div class="modal_beauty modal__container">
+                <div class="modal_beauty_container" role="dialog" aria-modal="true">
+                    <div class="modal_beauty_content" id="modal-beauty-content">
+                        <div class="modal_beauty_title" id="modal-beauty-title"><p id="modal-beauty-title-p"></p></div>
+                        <p id="modal_beauty_content_p"></p>
+                        <div class="modal_beauty_link" id="modal-beauty-link">
+                            <a id="modal-beauty-link-a" href="" target="_blank"></a>
+                        </div>
+                    </div>
+                    <div class="modal_beauty_close" aria-label="Close modal" data-micromodal-close><img src="TemplateData/x.svg"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal micromodal-slide" id="modal-video" aria-hidden="true">
+        <div class="modal__overlay" tabindex="-1" data-micromodal-close>
+            <div class="modal_video__close modal__container" aria-label="Close modal" data-micromodal-close>
+                <div class="modal_video__close__content">閉じる</div>
+                <div class="modal_video__close__icon"><img src="TemplateData/x.svg"></div>
+            </div>
+            <div class="modal_video__container modal__container" role="dialog" aria-modal="true">
+                <div class="modal_video__content__space" data-micromodal-close></div>
+                <div class="modal_video__content" id="modal-video-content"></div>
+                <div class="modal_video__content__space" data-micromodal-close></div>
+            </div>
+        </div>
+    </div>
+    <div id="DebugWindow"></div>
+    <button id="resolution-change-btn" type="button"></button>
+    <div id="resolution-change-modal">
+        <div id="resolution-change">
+            <div id="resolution-btns">
+                <button type="button" id="resolution-max" class="select"></button>
+                <button type="button" id="resolution-high"></button>
+                <button type="button" id="resolution-middle"></button>
+                <button type="button" id="resolution-low"></button>
+            </div>
+            <button id="resolution-modal-hide" type="button"></button>
+        </div>
+    </div>
+    <div id="scene-loading">
+        <div id="loading-magic"><img src="./TemplateData/loading_magic.png" /></div>
+        <div id="loading-content">
+            <img id="scene-loading-img1" src="./TemplateData/loading_img.png">
+            <div id="scene-loading-text">Loading...</div>
+            <img id="scene-loading-img2" src="./TemplateData/loading_img2.png">
+        </div>
+    </div>
+    <div id="terms-container">
+        <div id="terms-content">
+            <div id="terms-title"><img src="TemplateData/terms-tit.svg"></div>
+            <div id="terms-subtitle">利用規約の確認</div>
+            <div id="terms-description">S-PACEの利用規約が更新されました。<br>内容をご確認いただき、引き続きS-PACEをお楽しみください。</div>
+            <div id="terms-check-container">
+                <label id="terms-check">
+                    <input type="checkbox" id="terms-agree">
+                    <a href="https://s-pace.land/terms/" target="_blank" id="terms-link">利用規約</a>に同意する
+                </label>
+            </div>
+            <div id="terms-start-container"><button class="terms-button" id="terms-start" onclick="onStartClick();" disabled>スタート</button></div>
+        </div>
+    </div>
+    <div class="screenshot_modal" id="screenshot_modal">
+        <div class="screenshot_box">
+            <img class="screenshot_img" id="screenshot_img" src="">
+            <br>スマートフォンの場合は画像を長押しして保存してください。
+            <div class="screenshot_dialog">
+                <button class="screenshot_save"><img src="./TemplateData/image/save.png"></button>
+                <button class="screenshot_return"><img src="./TemplateData/image/return.png"></button>
+            </div>
+        </div>
+    </div>
+
+    <div id="landscape-modal">
+        <div id="landscape-box">
+            <div id="landscape-img"><img src="./TemplateData/Loading_1.png"></div>
+            <div id="landscape-description-box">
+                <p id="landscape-subtitle">以下を実施して次に進みましょう</p>
+                <div id="landscape-description">
+                    <p>画面ロックを解除してください</p>
+                    <p>画面を横向きにしてください</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <script>
+        var ua = window.navigator.userAgent.toLowerCase();
+        var ipad = ua.indexOf('ipad') > -1 || ua.indexOf('macintosh') > -1 && 'ontouchend' in document;
+
+        const agreedKey = "TermsAgreed";
+        function onStartClick() {
+            localStorage.setItem(agreedKey, 'true');
+            const elm = document.getElementById("terms-container");
+            elm.style.display = "none";
+            localStorage.setItem('UnityUI','true');
+        }
+        var SaveElem = document.querySelector(".screenshot_save");
+        document.addEventListener('DOMContentLoaded', function () {
+            localStorage.setItem('UnityUI','false');
+            const agree = document.getElementById("terms-agree");
+            agree.addEventListener('change', function () {
+                const elm = document.getElementById("terms-start");
+                const checkmark = document.getElementById("terms-check");
+                if (agree.checked) {
+                    elm.removeAttribute("disabled");
+                    checkmark.classList.add("checkmark-checked");
+                    checkmark.classList.remove("checkmark-not-check");
+                } else {
+                    elm.setAttribute("disabled", true);
+                    checkmark.classList.remove("checkmark-checked");
+                    checkmark.classList.add("checkmark-not-check");
+                }
+            });
+
+            if (localStorage.getItem(agreedKey)) {
+                onStartClick();
+            }
+            if(navigator.userAgent.match(/(iPhone|iPad|iPod|Android)/i)){
+                //SaveElem.append("<br>写真を長押しして保存してね");
+            }
+            else{
+                //SaveElem.append("<br>写真を長押しして保存してね");
+            }
+        });
+
+
+        SaveElem.onclick = function(){
+            if(navigator.userAgent.match(/(iPhone|iPad|iPod|Android)/i)){
+            }
+            else{
+                var a = document.createElement('a');
+                a.download = "picture.png";
+                const imgElem = document.querySelector(".screenshot_img");
+                a.href = imgElem.getAttribute('src');
+                a.click();
+            }
+        }
+        var ReturnElem = document.querySelector(".screenshot_return");
+        ReturnElem.onclick = function(){
+            const modalElem = document.querySelector(".screenshot_modal");
+            modalElem.style.display ='none';
+            localStorage.setItem('UnityUI','true');
+	        window.unityInstance.SendMessage('WorldManager', 'CloseScreenCapture');
+        }
+
+        var container = document.querySelector("#unity-container");
+        var canvas = document.querySelector("#unity-canvas");
+        var loadingBar = document.querySelector("#unity-loading-bar");
+        var progressBarFull = document.querySelector("#progress-bar-full");
+        var warningBanner = document.querySelector("#unity-warning");
+
+        var pixcelRatio = window.devicePixelRatio;
+        if (pixcelRatio > 2) pixcelRatio = 2;
+        var screenWidth = window.screen.width * pixcelRatio;
+        var screenHeight = window.screen.height * pixcelRatio;
+        var defWidth = canvas.width;
+        var defHeight = canvas.height;
+        var userWidth = 0;
+        var userHeight = 0;
+        var userRatio = 0;
+        function UpdateResolution() {
+            userRatio = userHeight / userHeight;
+            var canvasRatio = canvas.clientWidth / canvas.clientHeight;
+            if (canvasRatio > userRatio) {
+                // ウィンドウの横幅比率が大きい場合
+                canvas.height = userWidth / canvasRatio;
+                canvas.width = userWidth;
+            } else {
+                // ウィンドウの縦幅比率が大きい場合
+                canvas.height = userHeight;
+                canvas.width = userHeight * canvasRatio;
+            }
+        }
+        function ResolutionInit() {
+            userHeight = canvas.height;
+            userWidth = canvas.width;
+            userRatio = userHeight / userHeight;
+            UpdateResolution();
+        }
+        function SetCanvasResolution(width, height) {
+            if (ua.indexOf("android") !== -1 || ua.indexOf("iphone") !== -1 || ipad) {
+                userHeight = width;
+                userWidth = height;
+            } else {
+                userHeight = height;
+                userWidth = width;
+            }
+            UpdateResolution();
+        }
+
+        $(window).on('load', () => {
+            SetCanvasResolution(screenWidth, screenHeight);
+            $('#resolution-change-btn').on('click', () => {
+                localStorage.setItem('UnityUI', 'false');
+                $('#resolution-change-modal').show();
+            });
+            $('#resolution-max').on('click', () => {
+                $('.select').removeClass("select");
+                $('#resolution-max').addClass("select");
+                SetCanvasResolution(screenWidth, screenHeight);
+            });
+            $('#resolution-high').on('click', () => {
+                $('.select').removeClass("select");
+                $('#resolution-high').addClass("select");
+                SetCanvasResolution(defWidth, defHeight);
+            });
+            $('#resolution-middle').on('click', () => {
+                $('.select').removeClass("select");
+                $('#resolution-middle').addClass("select");
+                SetCanvasResolution(defWidth / 2, defHeight / 2);
+            });
+            $('#resolution-low').on('click', () => {
+                $('.select').removeClass("select");
+                $('#resolution-low').addClass("select");
+                SetCanvasResolution(defWidth / 3, defHeight / 3);
+            });
+            $('#resolution-modal-hide').on('click', () => {
+                $('#resolution-change-modal').hide();
+                localStorage.setItem('UnityUI', 'true');
+            });
+            $(window).on("orientationchange resize", function () {
+                if ($('#resolution-max').hasClass("select")) {
+                    SetCanvasResolution(screenWidth, screenHeight);
+                }
+
+                UpdateResolution();
+            });
+        });
+
+        // Shows a temporary message banner/ribbon for a few seconds, or
+        // a permanent error message on top of the canvas if type=='error'.
+        // If type=='warning', a yellow highlight color is used.
+        // Modify or remove this function to customize the visually presented
+        // way that non-critical warnings and error messages are presented to the
+        // user.
+        function unityShowBanner(msg, type) {
+            function updateBannerVisibility() {
+                warningBanner.style.display = warningBanner.children.length ? 'block' : 'none';
+            }
+            var div = document.createElement('div');
+            div.innerHTML = msg;
+            warningBanner.appendChild(div);
+            if (type == 'error') div.style = 'background: red; padding: 10px;';
+            else {
+                if (type == 'warning') div.style = 'background: yellow; padding: 10px;';
+                setTimeout(function() {
+                warningBanner.removeChild(div);
+                updateBannerVisibility();
+                }, 5000);
+            }
+            updateBannerVisibility();
+        }
+
+        if (ua.indexOf("android") !== -1 || ua.indexOf("iphone") !== -1 || ipad) {
+            var buildUrl = "Build";
+            var loaderUrl = buildUrl + "/frieren.s-pace.land_512.loader.js";
+            var config = {
+                dataUrl: buildUrl + "/frieren.s-pace.land_512.data.unityweb",
+                frameworkUrl: buildUrl + "/frieren.s-pace.land_512.framework.js.unityweb",
+                codeUrl: buildUrl + "/frieren.s-pace.land_512.wasm.unityweb",
+                streamingAssetsUrl: "StreamingAssets",
+                companyName: "SMDE",
+                productName: "Frieren_World",
+                productVersion: "2023.08.09",
+                showBanner: unityShowBanner,
+            };
+        }
+        else{
+            var buildUrl = "Build";
+            var loaderUrl = buildUrl + "/frieren.s-pace.land.loader.js";
+            var config = {
+                dataUrl: buildUrl + "/frieren.s-pace.land.data.unityweb",
+                frameworkUrl: buildUrl + "/frieren.s-pace.land.framework.js.unityweb",
+                codeUrl: buildUrl + "/frieren.s-pace.land.wasm.unityweb",
+                streamingAssetsUrl: "StreamingAssets",
+                companyName: "SMDE",
+                productName: "Frieren_World",
+                productVersion: "2023.08.09",
+                showBanner: unityShowBanner,
+            };
+        }
+        // By default Unity keeps WebGL canvas render target size matched with
+        // the DOM size of the canvas element (scaled by window.devicePixelRatio)
+        // Set this to false if you want to decouple this synchronization from
+        // happening inside the engine, and you would instead like to size up
+        // the canvas DOM size and WebGL render target sizes yourself.
+        //config.matchWebGLToCanvasSize = false;
+        //if(ipad){
+            config.matchWebGLToCanvasSize = false;
+        //}
+
+        // To lower canvas resolution on mobile devices to gain some
+        // performance, uncomment the following line:
+        // config.devicePixelRatio = 1;
+        if (2 < window.devicePixelRatio)
+        {
+            config.devicePixelRatio = 2;
+        }
+
+        loadingBar.style.display = "block";
+        var script = document.createElement("script");
+        script.src = loaderUrl;
+        script.onload = () => {
+            createUnityInstance(canvas, config, (progress) => {
+                progressBarFull.style.width = 100 * progress + "%";
+            }).then((unityInstance) => {
+                var ele = document.getElementById('scene-loading');
+                ele.style.display = "none";
+                loadingBar.style.display = "none";
+                window.unityInstance = unityInstance;
+                ResolutionInit();
+                $('#resolution-change-btn').show();
+            }).catch((message) => {
+                alert(message);
+            });
+        };
+        document.body.appendChild(script);
+    </script>
+</body>
+</html>
